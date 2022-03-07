@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="tool-bar row">
+        <p id="start-crawling">
+            <a href="#" class="border border-dark btn btn-default"><i class="fa fa-list-alt"></i> Start Crawling</a>
+        </p>
+
+        <p id="btn-chart" style="margin-left:20px;">
+            <a href="@Url.Action("ShowChart","Spider")" class="border border-dark btn btn-default"><i class="fa fa-pie-chart"></i> Show Chart</a>
+        </p>
+    </div>
+
+    <div class="form-group pull-right">
+        @using (Html.BeginForm("ExportToExcel", "Spider", FormMethod.Post))
+        {
+            <input type="submit" value="Export" class="btn btn-success" />
+        }
+    </div>
+
+<div id="result-crawling">
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $("#start-crawling").on("click", function () {
+
+    $.ajax({
+        url: '@Url.Action("StartCrawling", "Spider")',
+            type: 'get',
+            datatype: 'html',
+            success: function (data) {
+                $('#result-crawling').html(data);
+            }
+        });
+
+});
+
+</script>

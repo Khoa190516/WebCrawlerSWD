@@ -1,0 +1,43 @@
+﻿@model WebCrawlerSWD.Models.JobsMangement
+
+
+    <div">
+        <b>Total Jobs Found:</b> @Model.TotalJobs
+    </div>
+    <div>
+        <b>Job Type: </b> @Model.JobType
+    </div><br/>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Experience Advanced Type
+            </th>
+            <th>
+                Total Jobs Found
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model.ListJob)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpCategory)
+                    </td>
+                    <td>
+                        @if(item.TotalJobsByExpFound.Equals("0"))
+                        {
+                            @Model.TotalJobs
+                        }else{
+                             @Html.DisplayFor(modelItem => item.TotalJobsByExpFound)
+                        }                    
+                    </td>
+                </tr>
+           }
+        }
+    </tbody>
+</table>

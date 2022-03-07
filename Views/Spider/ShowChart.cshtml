@@ -1,0 +1,33 @@
+﻿@model WebCrawlerSWD.Models.JobsChart
+@{
+    ViewData["Title"] = "ShowChart";
+}
+
+<h1 class="text-center">ShowChart</h1>
+<p id="btn-chart" style="margin-left:20px;float:right;">
+            <a href="@Url.Action("Index","Spider")" class="border border-dark btn btn-default"><i class="fa fa-home"></i> Main Page</a>
+        </p>
+<div id="chart-jobs" style="width:50%;height:50%;">
+    <canvas id="pie-chart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var ctx = document.getElementById("pie-chart").getContext('2d');
+
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["0 Exp","1 Year Exp Less","1 Year Exp","2 Years Exp","3 Years Exp","4 Years Exp","5 Years Exp","Over 5 Years Exp"],
+                datasets: [{
+                    backgroundColor:["#2ecc71","#3498db","#95a5a6","9b59b6","#e1e700","#ff0000","#75ede7","#2069e7"],
+                    data: [@Model.ListJobChart[0],@Model.ListJobChart[1],@Model.ListJobChart[2],@Model.ListJobChart[3],
+                           @Model.ListJobChart[4],@Model.ListJobChart[5],@Model.ListJobChart[6],@Model.ListJobChart[7]]
+                }]
+            }
+        });
+    });
+</script>
+    
