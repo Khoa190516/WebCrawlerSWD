@@ -2,28 +2,39 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
+    #result-crawling{
+        background-image: url('https://images.unsplash.com/photo-1540270776932-e72e7c2d11cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTl8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
     <div class="tool-bar row">
         <p id="start-crawling">
             <a href="#" class="border border-dark btn btn-default"><i class="fa fa-list-alt"></i> Start Crawling</a>
         </p>
 
         <p id="btn-chart" style="margin-left:20px;">
-            <a href="@Url.Action("ShowChart","Spider")" class="border border-dark btn btn-default"><i class="fa fa-pie-chart"></i> Show Chart</a>
+            <a href="#" class="border border-dark btn btn-default"><i class="fa fa-pie-chart"></i> Show Chart</a>
         </p>
-    </div>
 
-    <div class="form-group pull-right">
-        @using (Html.BeginForm("ExportToExcel", "Spider", FormMethod.Post))
-        {
-            <input type="submit" value="Export" class="btn btn-success" />
-        }
+        <div id="div-export" style="margin-left:87.2%">
+            <p id="btn-export">
+                <a href="#" class="border border-dark btn btn-success"><i class="fa-solid fa-file-export"></i> Export to Excel </a>
+            </p>
+        </div>
     </div>
 
 <div id="result-crawling">
+</div><br/><br/>
+<div id="result-chart">
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
+    var isLoad = false;
     $("#start-crawling").on("click", function () {
 
     $.ajax({
@@ -32,9 +43,35 @@
             datatype: 'html',
             success: function (data) {
                 $('#result-crawling').html(data);
+                $('#result-chart').html("");
+                isLoad = true;
             }
         });
 
+});
+
+$("#btn-chart").on("click", function () {
+    if(isLoad){
+        $.ajax({
+        url: '@Url.Action("ShowChart", "Spider")',
+            type: 'get',
+            datatype: 'html',
+            success: function (data) {
+                $('#result-chart').html(data);
+                $(window).scrollTop($('#pie-chart').offset().top);
+            }
+        });
+    }else{
+        alert("No data for chart!");
+    }
+});
+
+$("#btn-export").on("click",function(){
+    if(isLoad){
+        window.location.href = '@Url.Action("ExportToExcel", "Spider")';
+    }else{
+        alert("No data to export!");
+    }
 });
 
 </script>

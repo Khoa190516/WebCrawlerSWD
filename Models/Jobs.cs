@@ -24,7 +24,7 @@ namespace WebCrawlerSWD.Models
 
     public class JobsByExp
     {
-        public List<Job> Jobs { get; set; }
+        public List<Job> Jobs = new();
         public string TotalJobsByExpFound { get; set; }
         public string ExpCategory { get; set; }
 
@@ -38,13 +38,16 @@ namespace WebCrawlerSWD.Models
 
     public class JobsMangement
     {
-        public List<JobsByExp> ListJob { get; set; }
+        public List<JobsByExp> ListJob = new();
         public string TotalJobs { get; set; }
         public string JobType { get; set; }
 
         public JobsMangement()
         {
-            ListJob = new List<JobsByExp>();
+            if (ListJob == null)
+            {
+                ListJob = new List<JobsByExp>();
+            }      
             TotalJobs = "0";
             JobType = "";
         }
