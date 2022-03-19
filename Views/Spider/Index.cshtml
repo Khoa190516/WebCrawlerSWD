@@ -15,6 +15,14 @@
             <a href="#" class="border border-dark btn btn-default"><i class="fa fa-list-alt"></i> Start Crawling</a>
         </p>
 
+        <p id="start-job" style="margin-left:20px">
+            <a href="#" class="border border-dark btn btn-default"><i class="fa fa-list-alt"></i> Start Job</a>
+        </p>
+
+        <p id="stop-job" style="margin-left:20px">
+            <a href="#" class="border border-dark btn btn-default"><i class="fa fa-list-alt"></i> Stop Job</a>
+        </p>
+
         <p id="btn-chart" style="margin-left:20px;">
             <a href="#" class="border border-dark btn btn-default"><i class="fa fa-pie-chart"></i> Show Chart</a>
         </p>
@@ -30,11 +38,15 @@
 </div><br/><br/>
 <div id="result-chart">
 </div>
+<div id="result-job">
+
+</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-    var isLoad = false;
+    var isLoad = false; 
+    var isJobStarted = false;
     $("#start-crawling").on("click", function () {
 
     $.ajax({
@@ -44,10 +56,48 @@
             success: function (data) {
                 $('#result-crawling').html(data);
                 $('#result-chart').html("");
+                $('#result-job').html("");
                 isLoad = true;
             }
         });
 
+});
+
+$("#start-job").on("click", function(){
+    if(isJobStarted==false){
+        $.ajax({
+        url: '@Url.Action("ShowJob", "Spider")',
+            type: 'get',
+            datatype: 'html',
+            success: function (data) {
+                $('#result-crawling').html(data);
+                $('#result-chart').html("");
+                $('#result-job').html("");
+                isLoad = true;
+                isJobStarted = true;
+            }
+        });
+    }else{
+        alert("Job is already started !!");
+    }
+    
+});
+
+$("#stop-job").on("click", function(){
+    if(isJobStarted==true){
+        $.ajax({
+        url: '@Url.Action("StopJob", "Spider")',
+            type: 'get',
+            datatype: 'html',
+            success: function (data) {
+                alert("Spider bot is stopped !")
+                isJobStarted = false;
+            }
+        });
+    }else{
+        alert("Job is not started !!");
+    }
+    
 });
 
 $("#btn-chart").on("click", function () {

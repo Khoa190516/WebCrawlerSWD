@@ -11,7 +11,7 @@ namespace WebCrawlerSWD.ConstURL
 
         public readonly string IT_Duoi1Nam = "https://www.topcv.vn/tim-viec-lam-it-phan-mem-c10026?exp=2&sort=up_top";
 
-        public readonly string IT_1Nam = "https://www.topcv.vn/tim-viec-lam-it-phan-mem-c10026?exp=2&sort=up_top";
+        public readonly string IT_1Nam = "https://www.topcv.vn/tim-viec-lam-it-phan-mem-c10026?exp=3&sort=up_top";
 
         public readonly string IT_2Nam = "https://www.topcv.vn/tim-viec-lam-it-phan-mem-c10026?exp=4&sort=up_top";
 

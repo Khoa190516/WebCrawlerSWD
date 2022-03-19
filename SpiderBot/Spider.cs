@@ -5,13 +5,15 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WebCrawlerSWD.Models;
+using Quartz;
+using WebCrawlerSWD.ConstURL;
 
 namespace WebCrawlerSWD.SpiderBot
 {
     public class Spider
     {
 
-        public void StartCrowlingAsync(JobsMangement List, List<String> ListUrl)
+        public void StartCrawlingAsync(JobsMangement List, List<String> ListUrl)
         {
             string mainPageUrl = ListUrl.First().ToString();
             CrawlingMainPage(List, mainPageUrl).Wait();
@@ -106,6 +108,14 @@ namespace WebCrawlerSWD.SpiderBot
             //get list of JobDivs
             var jobDivs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").
                 Equals("job-item  bg-highlight  job-ta result-job-hover")).ToList();
+            
+            var jobDivs2 = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").
+                Equals("job-item  job-ta result-job-hover")).ToList();
+
+            foreach(var jobDiv in jobDivs2)
+            {
+                jobDivs.Add(jobDiv);
+            }
 
             //get list jobs
             foreach (var jobDiv in jobDivs)
@@ -128,7 +138,7 @@ namespace WebCrawlerSWD.SpiderBot
                 //add job to list
                 JobList.Jobs.Add(new Job(companyName, jobTitle, salary, address, logo));
             }
-
+            
             return JobList;
         }
     }

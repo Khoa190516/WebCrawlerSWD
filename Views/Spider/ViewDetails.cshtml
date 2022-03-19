@@ -1,0 +1,50 @@
+﻿@model WebCrawlerSWD.Models.JobsByExp
+
+@{
+    ViewData["Title"] = "ViewDetails";
+}
+
+<h3>Experience Advanced: @Model.ExpCategory.ToString()</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Logo
+            </th>
+            <th>
+                Job Title
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Salary
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Jobs) {
+        <tr>
+            <td>
+                <img style="height:80px;width:80px;" src="@item.LogoURL" alt="Logo Company"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

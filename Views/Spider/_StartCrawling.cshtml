@@ -18,6 +18,9 @@
             <th>
                 Total Jobs Found
             </th>
+            <th>
+                Action
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +39,11 @@
                         }else{
                              @Html.DisplayFor(modelItem => item.TotalJobsByExpFound)
                         }                    
+                    </td>
+                    <td>
+                        <p id="btn-export">
+                            <a href="@Url.ActionLink("ViewDetails","Spider", new { expCategory = @item.ExpCategory })" class="border border-dark btn btn-success"><i class="fa-solid fa-file-export"></i> Details </a>
+                        </p>
                     </td>
                 </tr>
            }
